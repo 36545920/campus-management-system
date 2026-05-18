@@ -1,4 +1,4 @@
-package top.campus.campusserver;
+package top.campus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

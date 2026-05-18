@@ -1,4 +1,4 @@
-package top.campus.security;
+package top.campus.security.entity;
 
 
 import lombok.AllArgsConstructor;

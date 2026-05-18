@@ -1,4 +1,4 @@
-package top.campus.security;
+package top.campus.security.filter;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
@@ -10,7 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import top.campus.utils.JwtUtils;
+import top.campus.security.service.CampusDetailsService;
+import top.campus.security.utils.JwtUtils;
 
 import java.io.IOException;
 

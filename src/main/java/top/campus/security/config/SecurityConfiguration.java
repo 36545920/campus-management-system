@@ -1,4 +1,4 @@
-package top.campus.security;
+package top.campus.security.config;
 
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import top.campus.security.filter.JwtAuthenticationFilter;
+import top.campus.security.handler.AuthenticationEntryPointImpl;
 
 @Configuration
 @EnableMethodSecurity
@@ -43,7 +45,7 @@ public class SecurityConfiguration {
      * Spring Security 核心配置
      */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationEntryPointImpl authenticationEntryPoint) throws Exception {
         http
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(session -> {
@@ -55,9 +57,11 @@ public class SecurityConfiguration {
         })
         .addFilterBefore(jwtAuthenticationFilter , UsernamePasswordAuthenticationFilter.class)
         .formLogin(AbstractHttpConfigurer::disable)
-        .httpBasic(AbstractHttpConfigurer::disable);
+        .httpBasic(AbstractHttpConfigurer::disable)
+        .exceptionHandling(ex -> {
+            ex.authenticationEntryPoint(authenticationEntryPoint);
+        });
         return http.build();
-
     }
 
 

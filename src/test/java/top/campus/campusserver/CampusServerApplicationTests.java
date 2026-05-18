@@ -1,4 +1,4 @@
-package top.pjj.campusserver;
+package top.campus.campusserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

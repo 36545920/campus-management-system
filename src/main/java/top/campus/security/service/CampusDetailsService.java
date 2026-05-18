@@ -1,4 +1,4 @@
-package top.campus.security;
+package top.campus.security.service;
 
 import jakarta.annotation.Resource;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import top.campus.entity.SysUser;
 import top.campus.mapper.PermissionMapper;
 import top.campus.mapper.UserMapper;
+import top.campus.security.entity.LoginUser;
 
 import java.util.List;
 

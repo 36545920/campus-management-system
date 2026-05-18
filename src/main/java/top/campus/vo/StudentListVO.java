@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentVO {
+public class StudentListVO {
     /**
      * 学生ID
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 学号
@@ -32,24 +32,14 @@ public class StudentVO {
     private String genderName;
 
     /**
-     * 年龄
-     */
-    private Integer age;
-
-    /**
      * 手机号
      */
     private String phone;
 
     /**
-     * 邮箱
-     */
-    private String email;
-
-    /**
      * 头像URL
      */
-    private String avatarURL;
+    private String avatar;
 
     /**
      * 班级名称
@@ -57,22 +47,13 @@ public class StudentVO {
     private String className;
 
     /**
-     * 家庭住址
-     */
-    private String address;
-
-    /**
      * 状态
      */
     private Integer status;
 
     /**
-     * 创建时间
+     * 专业名称
      */
-    private LocalDateTime createTime;
+    private String majorName;
 
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
 }

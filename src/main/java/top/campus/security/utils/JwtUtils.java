@@ -1,4 +1,4 @@
-package top.campus.utils;
+package top.campus.security.utils;
 
 
 import io.jsonwebtoken.Claims;
