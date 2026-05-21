@@ -27,7 +27,7 @@ public class  AuthServiceImpl implements AuthService {
      */
     @Override
     public LoginVO login(LoginDTO loginDTO) {
-        SysUser sysUser = userMapper.selectByUsername(loginDTO.getUsername());
+        SysUser sysUser = userMapper.selectUserByUsername(loginDTO.getUsername());
         if (sysUser == null) {
             throw  new RuntimeException("用户不存在");
         }
