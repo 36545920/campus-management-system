@@ -20,6 +20,11 @@ public class  AuthServiceImpl implements AuthService {
     @Resource
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * 登录验证，成功返回jwt令牌
+     * @param loginDTO 前端登录数据
+     * @return jwt令牌
+     */
     @Override
     public LoginVO login(LoginDTO loginDTO) {
         SysUser sysUser = userMapper.selectByUsername(loginDTO.getUsername());
@@ -30,8 +35,17 @@ public class  AuthServiceImpl implements AuthService {
         if (!bCryptPasswordEncoder.matches(loginDTO.getPassword(), sysUser.getPassword())) {
             throw new RuntimeException("密码错误");
         }
-
         String token = JwtUtils.createToken(sysUser.getId(), sysUser.getUsername());
-        return new LoginVO(token);
+        System.out.println(sysUser);
+        Integer roleType = sysUser.getUserType();
+        String role = "";
+        if (roleType == 1) {
+            role = "admin";
+        }else if (roleType == 2) {
+            role = "teacher";
+        }else if (roleType == 3) {
+            role = "student";
+        }
+        return new LoginVO(token,role);
     }
 }

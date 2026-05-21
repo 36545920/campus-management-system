@@ -11,6 +11,12 @@ public class Result<T> {
 
     private T data;
 
+    /**
+     * 成功状态吗
+     * @param data 成功消息
+     * @return Result
+     * @param <T> 泛型
+     */
     public static <T> Result<T> success(T data) {
         Result<T> result = new Result<>();
         result.setCode(200);
@@ -19,6 +25,11 @@ public class Result<T> {
         return result;
     }
 
+    /**
+     * 返回 '200,操作成功'的结果
+     * @return 200,操作成功
+     * @param <T> 泛型，这里建议String
+     */
     public static <T> Result<T> success() {
         Result<T> result = new Result<>();
         result.setCode(200);

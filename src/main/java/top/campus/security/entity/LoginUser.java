@@ -9,13 +9,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import top.campus.entity.SysUser;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginUser implements UserDetails {
+
 
     private SysUser sysUser;
 
@@ -24,6 +25,9 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (permissionList == null) {
+            return Collections.emptyList();
+        }
         //Spring Security 的权限校验机制只认 GrantedAuthority 接口，不认裸字符串。
         //你必须把角色/权限字符串包装成 GrantedAuthority 对象，框架才能用 hasRole()、hasAuthority() 等方法进行比对
         //把用户的权限字符串列表，转换成 Spring Security 所需的 GrantedAuthority 集合
@@ -32,6 +36,9 @@ public class LoginUser implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    public Long getId() {
+        return sysUser.getId();
+    }
     @Override
     public String getPassword() {
         return sysUser.getPassword();
@@ -65,6 +72,6 @@ public class LoginUser implements UserDetails {
     // 返回 false：账户禁用，抛出 DisabledException。
     @Override
     public boolean isEnabled() {
-        return sysUser.getStatus() == 1;
+        return sysUser.getStatus() == 1 && sysUser.getIsDeleted() == 0;
     }
 }

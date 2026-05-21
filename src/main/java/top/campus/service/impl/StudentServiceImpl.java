@@ -4,6 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import top.campus.common.Result;
+import top.campus.dto.StudentSaveDTO;
+import top.campus.entity.Student;
 import top.campus.mapper.StudentMapper;
 import top.campus.service.StudentService;
 import top.campus.vo.StudentListVO;
@@ -16,9 +19,19 @@ public class StudentServiceImpl implements StudentService {
     StudentMapper studentMapper;
 
     @Override
-    public PageInfo<StudentListVO> getStudentlist(int pageNum, int pageSize) {
+    public PageInfo<StudentListVO> getStudentList(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<StudentListVO> list = studentMapper.studentlist();
-        return new  PageInfo<>(list);
+        return new PageInfo<>(list);
+    }
+
+    @Override
+    public Result<String> addStudent(StudentSaveDTO student) {
+        Student student1 = studentMapper.findStudentByStudentNo(student.getStudentNo());
+        if(student1 != null){
+            return Result.build(409,"用户已存在");
+        }
+        studentMapper.addStudent(student);
+        return Result.success();
     }
 }

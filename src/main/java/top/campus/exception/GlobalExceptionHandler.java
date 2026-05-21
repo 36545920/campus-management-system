@@ -1,7 +1,6 @@
 package top.campus.exception;
 
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import top.campus.common.Result;
@@ -14,5 +13,11 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return Result.fail(e.getMessage());
 
+    }
+
+    @ExceptionHandler(value = BusinessException.class)
+    public Result<String> handleBusinessException(BusinessException e) {
+        e.printStackTrace();
+        return Result.build(e.getCode(), e.getMessage());
     }
 }

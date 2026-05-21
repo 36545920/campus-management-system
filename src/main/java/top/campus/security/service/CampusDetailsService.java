@@ -22,7 +22,7 @@ public class CampusDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser sysUser = userMapper.selectByUsername(username);
+        SysUser sysUser = userMapper.selectUserByUsername(username);
         if (sysUser == null) {
             throw new UsernameNotFoundException(username + " not found");
         }

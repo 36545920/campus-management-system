@@ -38,7 +38,4 @@ public class SysPermission {
      */
     private LocalDateTime createTime;
 
-
-
-
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         ObjectMapper json = new ObjectMapper();
         response.setStatus(401);

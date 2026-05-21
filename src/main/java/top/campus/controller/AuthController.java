@@ -18,7 +18,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public Result<LoginVO> login(@RequestBody LoginDTO loginDTO){
+    public Result<LoginVO> login(@RequestBody LoginDTO loginDTO) {
         return Result.success(authService.login(loginDTO));
     }
 }

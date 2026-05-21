@@ -1,25 +1,25 @@
-package top.campus.entity;
+package top.campus.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import java.time.LocalDateTime;
 
+
+/**
+ * 前端传来用户数据
+ */
 @Data
-public class SysUser {
-
-    /**
-     * 主键ID
-     */
-    private Long id;
+public class SysUserSaveDTO {
 
     /**
      * 用户名
      */
-
+    @NotBlank(message = "用户名不能为空")
     private String username;
 
     /**
      * 密码
      */
+
     private String password;
 
     /**
@@ -53,20 +53,7 @@ public class SysUser {
      * 2 教师
      * 3 学生
      */
+    @NotBlank(message = "用户类型不能为空")
     private Integer userType;
 
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 是否被删除
-     */
-    private  Integer isDeleted;
 }

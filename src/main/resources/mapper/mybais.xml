@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 命名空间应该与对应的 Mapper 接口全限定名一致 -->
+<mapper namespace="top.campus.mapper.SysUserMapper">
+    <!-- 更新用户信息 -->
+    <update id="updateSysUser" parameterType="top.campus.dto.SysUserUpdateDTO">
+        UPDATE sys_user
+        <set>
+            <!-- 昵称 -->
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+
+            <!-- 头像 -->
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+
+            <!-- 手机号 -->
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+
+            <!-- 邮箱 -->
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+
+            <!-- 更新时间 -->
+            update_time = NOW()
+        </set>
+        WHERE id = #{id} and is_deleted = 0;
+    </update>
+
+    <select id="getUserList" parameterType="top.campus.dto.UseQueryDTO" resultType="top.campus.vo.StudentListVO">
+        SELECT id, username, avatar, user_type
+        FROM sys_user
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND (username LIKE CONCAT('%', #{keyword}, '%')
+                OR nickname LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="userType != null">
+                and user_type = #{userType}
+            </if>
+            <if test="isDeleted != null">
+                AND is_deleted = #{deleted}
+            </if>
+            <if test="isDeleted == null">
+                AND is_deleted = 0
+            </if>
+        </where>
+    </select>
+
+</mapper>
