@@ -12,14 +12,24 @@ public class ClassInfo {
     private Long id;
 
     /**
+     * 专业ID
+     */
+    private Long majorId;
+
+    /**
      * 班级名称
      */
     private String className;
 
     /**
+     * 班主任ID
+     */
+    private String headTeacherId;
+
+    /**
      * 学生数量
      */
-    private Integer count;
+    private Integer studentCount;
 
     /**
      * 备注
@@ -42,19 +52,4 @@ public class ClassInfo {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-    /**
-     * 专业ID
-     */
-    private Long managerId;
-
-    /**
-     * 年级
-     */
-    private String grade;
-
-    /**
-     * 班主任ID
-     */
-    private Long headTeacherId;
 }

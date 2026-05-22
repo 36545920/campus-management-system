@@ -34,6 +34,16 @@ public class Teacher {
     private Integer age;
 
     /**
+     * 所属学院ID
+     */
+    private Long departmentId;
+
+    /**
+     * 头像URL
+     */
+    private String avatar;
+
+    /**
      * 教师手机号
      */
     private String phone;
@@ -47,16 +57,6 @@ public class Teacher {
      * 职称
      */
     private String title;
-
-    /**
-     * 所属专业ID
-     */
-    private Long majorId;
-
-    /**
-     * 头像URL
-     */
-    private String avatar;
 
     /**
      * 状态
@@ -74,6 +74,5 @@ public class Teacher {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
 
 }

@@ -9,4 +9,6 @@ public interface StudentService {
     PageInfo<StudentListVO> getStudentList(int pageNum, int pageSize);
 
     Result<String> addStudent(StudentSaveDTO student);
+
+    Result<String> updateStudent(StudentSaveDTO student);
 }

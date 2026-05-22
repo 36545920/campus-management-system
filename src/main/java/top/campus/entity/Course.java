@@ -22,16 +22,6 @@ public class Course {
     private String courseCode;
 
     /**
-     * 授课教师ID
-     */
-    private String teacherId;
-
-    /**
-     * 课时
-     */
-    private Integer classHour;
-
-    /**
      * 备注
      */
     private String remark;

@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import top.campus.common.Result;
 import top.campus.dto.StudentSaveDTO;
+import top.campus.dto.SysUserIdDTO;
 import top.campus.service.StudentService;
 import top.campus.vo.StudentListVO;
 
@@ -37,6 +38,12 @@ public class StudentController {
     @PreAuthorize("hasAuthority('student:update')")
     @PostMapping("/update")
     public Result<String> updateStudent(@RequestBody StudentSaveDTO student) {
+        return studentService.updateStudent(student);
+    }
+
+    @PreAuthorize("hasAuthority('student:delete')")
+    @PostMapping("/delete")
+    public Result<String> deleteStudent(@RequestBody SysUserIdDTO sysUserIdDTO) {
         return Result.success();
     }
 

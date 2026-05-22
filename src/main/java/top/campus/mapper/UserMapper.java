@@ -1,7 +1,6 @@
 package top.campus.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.springframework.beans.factory.annotation.Qualifier;
 import top.campus.dto.SysUserIdDTO;
 import top.campus.dto.SysUserSaveDTO;
 import top.campus.dto.SysUserUpdateDTO;

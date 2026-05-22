@@ -34,4 +34,9 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.addStudent(student);
         return Result.success();
     }
+
+    @Override
+    public Result<String> updateStudent(StudentSaveDTO student) {
+        return studentMapper.updateStudent(student) > 0 ? Result.success():Result.fail("更新失败");
+    }
 }

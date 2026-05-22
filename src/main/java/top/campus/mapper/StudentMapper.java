@@ -51,10 +51,12 @@ values (#{studentNO},#{name},#{gender},#{age},#{phone},#{email},#{avatar},#{clas
      * @return 学号对应的学生
      */
     @Select("""
-select 
+select
     * 
 from student 
 where student_no = #{studentNo}
 """)
     Student findStudentByStudentNo(@NotBlank(message = "学号不能为空") String studentNo);
+
+    int updateStudent(StudentSaveDTO student);
 }

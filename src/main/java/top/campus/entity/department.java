@@ -5,32 +5,24 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class ClassCourse {
-
+public class department {
     /**
-     * 主键ID
+     * 学院ID
      */
     private Long id;
 
     /**
-     * 班级ID
+     * 学院名称
      */
-    private Long classId;
+    private String departmentName;
 
     /**
-     * 课程ID
+     * 标注
      */
-    private Long courseId;
-
-    /**
-     * 授课老师ID
-     */
-    private Long teacherId;
+    private String remark;
 
     /**
      * 状态
-     * 1 正常
-     * 0 停止
      */
     private Integer status;
 
@@ -40,7 +32,7 @@ public class ClassCourse {
     private LocalDateTime createTime;
 
     /**
-     * 创建时间
+     * 更新时间
      */
     private LocalDateTime updateTime;
 }
