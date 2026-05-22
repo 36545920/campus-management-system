@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,12 +27,7 @@ public class StudentListVO {
     /**
      * 性别
      */
-    private String genderName;
-
-    /**
-     * 手机号
-     */
-    private String phone;
+    private Integer gender;
 
     /**
      * 头像URL
@@ -51,9 +44,6 @@ public class StudentListVO {
      */
     private Integer status;
 
-    /**
-     * 专业名称
-     */
-    private String majorName;
+
 
 }

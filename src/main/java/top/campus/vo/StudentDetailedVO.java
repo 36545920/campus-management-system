@@ -1,9 +1,18 @@
-package top.campus.dto;
+package top.campus.vo;
 
-import lombok.Data;
+import java.time.LocalDateTime;
 
-@Data
-public class updateStudentDTO {
+public class StudentDetailedVO {
+    /**
+     * 学生ID
+     */
+    private Integer id;
+
+    /**
+     * 学号
+     */
+    private String studentNo;
+
     /**
      * 学生姓名
      */
@@ -46,4 +55,20 @@ public class updateStudentDTO {
      */
     private String address;
 
+    /**
+     * 状态
+     * 1 正常
+     * 0 停用
+     */
+    private Integer status;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 }

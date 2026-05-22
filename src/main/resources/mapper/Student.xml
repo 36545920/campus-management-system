@@ -3,6 +3,65 @@
 
 <mapper namespace="top.campus.mapper.StudentMapper">
     <update id="updateStudent" parameterType="top.campus.dto.StudentSaveDTO">
-
+        update student
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            update_time = NOW()
+        </set>
+        where id = #{id} and status = 1
     </update>
+    
+    <select id="getStudentList" parameterType="top.campus.dto.StudentQueryDTO" resultType="top.campus.vo.StudentListVO">
+        select
+        student.id,
+        student.student_no,
+        student.name,
+        student.gender,
+        student.avatar,
+        class_info.class_name,
+        student.status
+        from student
+        left join class_info on class_info.id = student.class_id
+        <where>
+            <if test="studentNo != null and studentNo != ''">
+                and student.student_no LIKE CONCAT('%', #{studentNo}, '%')
+            </if>
+            <if test="name != null and name != ''">
+                and (student.name like concat('%',#{name},'%'))
+            </if>
+            <if test="gender != null">
+                and student.gender = #{gender}
+            </if>
+            <if test="classId != null">
+                and student.class_id = #{classId}
+            </if>
+            <if test="status != null">
+                and student.status = #{status}
+            </if>
+        </where>
+        order by student.id desc
+    </select>
 </mapper>

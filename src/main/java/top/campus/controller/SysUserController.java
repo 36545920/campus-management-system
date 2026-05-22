@@ -109,19 +109,36 @@ public class SysUserController {
         return sysUserService.changeUserRole(dto.getId(), dto.getRoleId());
     }
 
-
+    /**
+     * 修改当前用户的密码
+     * @param dto 旧密码，新密码和二次确认密码
+     * @return 是否修改成功
+     * @throws BusinessException 当前用户未登录
+     */
     @PreAuthorize("hasAuthority('user:changePassword')")
     @PostMapping("/changePassword")
     public Result<String> changePassword(@RequestBody @Validated ChangeMyPasswordDTO dto) throws BusinessException {
         return sysUserService.changePassword(dto);
     }
 
+    /**
+     * 重置用户密码的七请求
+     * @param dto 要重置密码的用户id和当前用户的密码，密码用来验证
+     * @return 是否重置成功
+     * @throws BusinessException 当前用户未登录
+     */
     @PreAuthorize("hasAuthority('user:resetPassword')")
     @PostMapping("/resetPassword")
     public Result<String> resetPassword(@RequestBody @Validated ResetPasswordDTO dto) throws BusinessException {
         return sysUserService.resetPassword(dto);
     }
 
+    /**
+     * 修改当前登录用户信息的请求
+     * @param dto 当前用户修复的信息
+     * @return 是否修改成功
+     * @throws BusinessException 当前用户不存在或者未登录
+     */
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/profile")
     public Result<String> updateProfile(@RequestBody @Validated ProfileUpdateDTO dto) throws BusinessException {

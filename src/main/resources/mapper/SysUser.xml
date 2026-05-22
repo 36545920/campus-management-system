@@ -50,9 +50,9 @@
             <if test="isDeleted != null">
                 AND is_deleted = #{deleted}
             </if>
-            <if test="isDeleted == null">
-                AND is_deleted = 0
-            </if>
+<!--            <if test="isDeleted == null">-->
+<!--                AND is_deleted = 0-->
+<!--            </if>-->
         </where>
     </select>
 
