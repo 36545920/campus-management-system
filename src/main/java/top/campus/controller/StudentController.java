@@ -7,10 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.campus.common.Result;
-import top.campus.dto.StudentIdDTO;
-import top.campus.dto.StudentQueryDTO;
-import top.campus.dto.StudentSaveDTO;
-import top.campus.dto.UpdateStudentDTO;
+import top.campus.dto.*;
+import top.campus.exception.BusinessException;
 import top.campus.service.StudentService;
 import top.campus.vo.StudentDetailedVO;
 import top.campus.vo.StudentListVO;
@@ -24,9 +22,14 @@ public class StudentController {
     @Resource
     private StudentService studentService;
 
+    /**
+     * 按条件查找学生
+     * @param studentQueryDTO 条件列表
+     * @return 返回条件的学生列表
+     */
     @PreAuthorize("hasAuthority('student:list')")
-    @GetMapping("/list")
-    public Result<PageInfo<StudentListVO>> getStudentList(@RequestBody StudentQueryDTO studentQueryDTO) {
+    @PostMapping("/list")
+    public Result<PageInfo<StudentListVO>> getStudentList(@RequestBody @Validated StudentQueryDTO studentQueryDTO) {
         PageInfo<StudentListVO> list = studentService.getStudentList(studentQueryDTO);
         return Result.success(list);
     }
@@ -44,20 +47,20 @@ public class StudentController {
     }
 
     /**
-     * 更新学生信息
+     * 更新学生信息(管理员)
      * @param student 要更新的学生信息
      * @return 是否更新成功
      */
     @PreAuthorize("hasAuthority('student:update')")
     @PostMapping("/update")
-    public Result<String> updateStudent(@RequestBody UpdateStudentDTO student) {
+    public Result<String> updateStudent(@RequestBody StudentUpdateDTO student) {
         return studentService.updateStudent(student);
     }
 
     /**
-     * 停止学生的请求
-     * @param idDTO 要停止的学生ID
-     * @return 是否停止成功
+     * 请求删除学生
+     * @param idDTO 要删除的学生ID
+     * @return 是否删除成功
      */
     @PreAuthorize("hasAuthority('student:delete')")
     @PostMapping("/delete")
@@ -88,16 +91,13 @@ public class StudentController {
     }
 
     /**
-     * 请求学生的详细信息
-     * @param dto 学生ID
-     * @return 学生的详细信息
+     * 更新当前用户为学生的个人信息
+     * @param studentUserProfileUpdateDTO 要更新的个人信息
+     * @return 是否更新成功
      */
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/profile")
-    public Result<StudentDetailedVO> student(@RequestBody @Validated StudentIdDTO dto) {
-        return studentService.getUserDetailed(dto);
+    @PostMapping("/updateProfile")
+    public Result<String> student(@RequestBody @Validated StudentUserProfileUpdateDTO studentUserProfileUpdateDTO) throws BusinessException {
+        return studentService.updateStudentUserProfile(studentUserProfileUpdateDTO);
     }
-
-
-
 }

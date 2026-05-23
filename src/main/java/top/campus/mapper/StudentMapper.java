@@ -1,14 +1,11 @@
 package top.campus.mapper;
 
 import jakarta.validation.constraints.NotBlank;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import top.campus.dto.StudentIdDTO;
 import top.campus.dto.StudentQueryDTO;
 import top.campus.dto.StudentSaveDTO;
-import top.campus.dto.UpdateStudentDTO;
+import top.campus.dto.StudentUpdateDTO;
 import top.campus.entity.Student;
 import top.campus.vo.StudentDetailedVO;
 import top.campus.vo.StudentListVO;
@@ -34,7 +31,7 @@ public interface StudentMapper {
             insert into campus_management.student(
             student_no, name, gender, age, phone, email, avatar, class_id, address, status
             )
-            values (#{studentNO},#{name},#{gender},#{age},#{phone},#{email},#{avatar},#{class_id},#{address},#{status})
+            values (#{studentNo},#{name},#{gender},#{age},#{phone},#{email},#{avatar},#{classId},#{address},#{status})
             """)
     int addStudent(StudentSaveDTO student);
 
@@ -52,7 +49,7 @@ public interface StudentMapper {
             """)
     Student findStudentByStudentNo(@NotBlank(message = "学号不能为空") String studentNo);
 
-    int updateStudent(UpdateStudentDTO student);
+    int updateStudent(StudentUpdateDTO student);
 
     @Update("update student set status = 0 ,student.update_time = NOW() where id = #{id}")
     int deleteStudent(StudentIdDTO idDTO);
@@ -67,4 +64,7 @@ public interface StudentMapper {
             where id = #{id}
             """)
     StudentDetailedVO findStudentByStudentId(StudentIdDTO dto);
+
+    @Select("select * from student where sys_user_id = #{userId} and status = 1")
+    Student findStudentBySysUserId(@Param("userId") Long userId);
 }

@@ -121,17 +121,18 @@ public class SysUserController {
         return sysUserService.changePassword(dto);
     }
 
+    //废弃功能模块
     /**
-     * 重置用户密码的七请求
+     * 重置用户密码的请求
      * @param dto 要重置密码的用户id和当前用户的密码，密码用来验证
      * @return 是否重置成功
      * @throws BusinessException 当前用户未登录
      */
-    @PreAuthorize("hasAuthority('user:resetPassword')")
-    @PostMapping("/resetPassword")
-    public Result<String> resetPassword(@RequestBody @Validated ResetPasswordDTO dto) throws BusinessException {
-        return sysUserService.resetPassword(dto);
-    }
+//    @PreAuthorize("hasAuthority('user:resetPassword')")
+//    @PostMapping("/resetPassword")
+//    public Result<String> resetPassword(@RequestBody @Validated ResetPasswordDTO dto) throws BusinessException {
+//        return sysUserService.resetPassword(dto);
+//    }
 
     /**
      * 修改当前登录用户信息的请求
@@ -140,7 +141,7 @@ public class SysUserController {
      * @throws BusinessException 当前用户不存在或者未登录
      */
     @PreAuthorize("isAuthenticated()")
-    @PutMapping("/profile")
+    @PutMapping("/updateProfile")
     public Result<String> updateProfile(@RequestBody @Validated ProfileUpdateDTO dto) throws BusinessException {
         return sysUserService.updateProfile(dto);
     }

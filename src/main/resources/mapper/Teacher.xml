@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.campus.mapper.TeacherMapper">
+    <select id="selectTeachers" parameterType="top.campus.dto.TeacherQueryDTO" resultType="top.campus.vo.TeacherListVO">
+        select
+        teacher.id,
+        teacher.teacher_no,
+        teacher.avatar,
+        teacher.name,
+        department.department_name,
+        teacher.gender,
+        teacher.status
+        from teacher
+        left join department on department.id = teacher.department_id
+        <where>
+            <if test="teacherNo != null and teacherNo != ''">
+                and teacher_no like concat('%',#{teacherNo},'%')
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="departmentId != null">
+                and department_id = #{departmentId}
+            </if>
+            <if test="status != null">
+                and teacher.status = #{status}
+            </if>
+        </where>
+    </select>
+</mapper>
+

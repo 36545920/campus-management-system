@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.campus.mapper.ClassCourseMapper">
+    <select id="selectClassCourseList" parameterType="top.campus.dto.ClassCourseQueryDTO" resultType="top.campus.vo.ClassCourseListVO">
+        select
+            cc.id,
+            ci.class_name,
+            c.course_name,
+            t.name as teacher_name,
+            cc.class_id,
+            cc.course_id,
+            cc.teacher_id,
+            cc.status
+        from class_course cc
+        left join class_info ci on cc.class_id = ci.id
+        left join course c on cc.course_id = c.id
+        left join teacher t on cc.teacher_id = t.id
+        <where>
+            <if test="classId != null">
+                and cc.class_id = #{classId}
+            </if>
+            <if test="courseId != null">
+                and cc.course_id = #{courseId}
+            </if>
+            <if test="teacherId != null">
+                and cc.teacher_id = #{teacherId}
+            </if>
+            <if test="status != null">
+                and cc.status = #{status}
+            </if>
+        </where>
+        order by cc.create_time desc
+    </select>
+</mapper>

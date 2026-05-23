@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.campus.mapper.MajorMapper">
+    <select id="selectMajorList" parameterType="top.campus.dto.MajorQueryDTO" resultType="top.campus.vo.MajorListVO">
+        select
+            m.id,
+            m.major_name,
+            m.major_code,
+            m.remark,
+            d.department_name,
+            m.department_id,
+            m.status,
+            m.create_time
+        from major m
+        left join department d on m.department_id = d.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and (m.major_name like concat('%', #{keyword}, '%') or m.major_code like concat('%', #{keyword}, '%'))
+            </if>
+            <if test="departmentId != null">
+                and m.department_id = #{departmentId}
+            </if>
+            <if test="status != null">
+                and m.status = #{status}
+            </if>
+        </where>
+        order by m.create_time desc
+    </select>
+
+    <update id="updateMajor" parameterType="top.campus.dto.MajorUpdateDTO">
+        update major
+        <set>
+            <if test="majorName != null and majorName != ''">major_name = #{majorName},</if>
+            <if test="majorCode != null and majorCode != ''">major_code = #{majorCode},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            update_time = NOW()
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

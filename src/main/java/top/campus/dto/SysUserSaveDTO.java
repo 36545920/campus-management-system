@@ -1,6 +1,7 @@
 package top.campus.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -53,7 +54,7 @@ public class SysUserSaveDTO {
      * 2 教师
      * 3 学生
      */
-    @NotBlank(message = "用户类型不能为空")
+    @NotNull(message = "用户类型不能为空")
     private Integer userType;
 
 }

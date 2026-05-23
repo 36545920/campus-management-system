@@ -3,7 +3,12 @@ package top.campus.dto;
 import lombok.Data;
 
 @Data
-public class UpdateStudentDTO {
+public class StudentUpdateDTO {
+    /**
+     * 学生ID
+     */
+    private Long id;
+
     /**
      * 学生姓名
      */

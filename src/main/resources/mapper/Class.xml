@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.campus.mapper.ClassMapper">
+    <select id="selectClassList" parameterType="top.campus.dto.ClassQueryDTO" resultType="top.campus.vo.ClassListVO">
+        select
+            ci.id,
+            ci.class_name,
+            m.major_name,
+            t.name as head_teacher_name,
+            ci.student_count,
+            ci.remark,
+            ci.status
+        from class_info ci
+        left join major m on ci.major_id = m.id
+        left join teacher t on ci.head_teacher_id = t.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and ci.class_name like concat('%', #{keyword}, '%')
+            </if>
+            <if test="majorId != null">
+                and ci.major_id = #{majorId}
+            </if>
+            <if test="status != null">
+                and ci.status = #{status}
+            </if>
+        </where>
+        order by ci.create_time desc
+    </select>
+
+    <update id="updateClass" parameterType="top.campus.dto.ClassUpdateDTO">
+        update class_info
+        <set>
+            <if test="className != null and className != ''">class_name = #{className},</if>
+            <if test="majorId != null">major_id = #{majorId},</if>
+            <if test="headTeacherId != null">head_teacher_id = #{headTeacherId},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            update_time = NOW()
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

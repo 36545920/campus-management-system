@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.campus.mapper.NoticeMapper">
+    <select id="selectNoticeList" parameterType="top.campus.dto.NoticeQueryDTO" resultType="top.campus.vo.NoticeListVO">
+        select id, title, publisher, is_top, status, create_time
+        from notice
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and title like concat('%', #{keyword}, '%')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="isTop != null">
+                and is_top = #{isTop}
+            </if>
+        </where>
+        order by is_top desc, create_time desc
+    </select>
+
+    <update id="updateNotice" parameterType="top.campus.dto.NoticeUpdateDTO">
+        update notice
+        <set>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="isTop != null">is_top = #{isTop},</if>
+            <if test="status != null">status = #{status},</if>
+            update_time = NOW()
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,16 +1,8 @@
-package top.campus.entity;
-
-import lombok.Data;
+package top.campus.vo;
 
 import java.time.LocalDateTime;
 
-@Data
-public class Student {
-    /**
-     * 学生ID
-     */
-    private Long id;
-
+public class StudentUserDetailedVO {
     /**
      * 学号
      */
@@ -59,13 +51,6 @@ public class Student {
     private String address;
 
     /**
-     * 状态
-     * 1 正常
-     * 0 停用
-     */
-    private Integer status;
-
-    /**
      * 创建时间
      */
     private LocalDateTime createTime;
@@ -74,9 +59,4 @@ public class Student {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-    /**
-     * 关联的用户ID
-     */
-    private Long sysUserID;
 }

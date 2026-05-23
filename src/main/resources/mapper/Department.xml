@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.campus.mapper.DepartmentMapper">
+    <select id="selectDepartmentList" parameterType="top.campus.dto.DepartmentQueryDTO" resultType="top.campus.vo.DepartmentListVO">
+        select id, department_name, remark, status, create_time
+        from department
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and department_name like concat('%', #{keyword}, '%')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <update id="updateDepartment" parameterType="top.campus.dto.DepartmentUpdateDTO">
+        update department
+        <set>
+            <if test="departmentName != null and departmentName != ''">department_name = #{departmentName},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            update_time = NOW()
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

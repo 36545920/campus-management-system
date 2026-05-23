@@ -8,7 +8,7 @@ import lombok.Data;
 public class UserListVO {
 
     /**
-     * 主键ID
+     * 用户ID
      */
     private Long id;
 

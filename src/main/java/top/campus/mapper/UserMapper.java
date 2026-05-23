@@ -66,7 +66,7 @@ public interface UserMapper {
     @Insert("""
             insert into sys_user(
             username, nickname, password,avatar, phone, email, user_type
-            ) VALUES (#{username},#{password},#{nickname},#{avatar},#{phone},#{email},#{userType})
+            ) VALUES (#{username},#{nickname},#{password},#{avatar},#{phone},#{email},#{userType})
             """)
     void addSysUser(SysUserSaveDTO sysUserSaveDTO);
 

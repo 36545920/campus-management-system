@@ -26,9 +26,6 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     private PasswordEncoder passwordEncoder;
 
-
-
-
     @Override
     public Result<String> addSysUser(SysUserSaveDTO sysUserSaveDTO) {
         SysUser sysUser = userMapper.selectUserByUsername(sysUserSaveDTO.getUsername());
@@ -88,7 +85,7 @@ public class SysUserServiceImpl implements SysUserService {
         if (i > 0) {
             return Result.success();
         }else {
-            return Result.fail("恢复失败");
+            return Result.fail("修改角色失败");
         }
 
     }
@@ -136,7 +133,7 @@ public class SysUserServiceImpl implements SysUserService {
             return Result.build(422,"该用户已被删除");
         }
         SysUser sysUser = userMapper.selectUserById(SecurityUtils.getCurrentUserId());
-        if(dto.getPassword().equals(sysUser.getPassword())){
+        if(!passwordEncoder.matches(dto.getPassword(), sysUser.getPassword())){
             return Result.build(422,"密码错误");
         }
         String encodePassword = passwordEncoder.encode("123456");
@@ -149,7 +146,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUserUpdateDTO sysUserUpdateDTO = new SysUserUpdateDTO();
         BeanUtils.copyProperties(dto,sysUserUpdateDTO);
         sysUserUpdateDTO.setId(SecurityUtils.getCurrentUserId());
-        return userMapper.updateSysUser(sysUserUpdateDTO) > 1 ? Result.success() : Result.fail("更新失败");
+        return userMapper.updateSysUser(sysUserUpdateDTO) > 0 ? Result.success() : Result.fail("更新失败");
     }
 
 }

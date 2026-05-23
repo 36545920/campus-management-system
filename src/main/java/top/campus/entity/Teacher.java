@@ -75,4 +75,9 @@ public class Teacher {
      */
     private LocalDateTime updateTime;
 
+    /**
+     * 关联的用户ID
+     */
+    private Long sysUserID;
+
 }

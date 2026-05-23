@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 命名空间应该与对应的 Mapper 接口全限定名一致 -->
-<mapper namespace="top.campus.mapper.SysUserMapper">
+<mapper namespace="top.campus.mapper.UserMapper">
     <!-- 更新用户信息 -->
     <update id="updateSysUser" parameterType="top.campus.dto.SysUserUpdateDTO">
         UPDATE sys_user
@@ -33,7 +33,7 @@
         WHERE id = #{id} and is_deleted = 0;
     </update>
 
-    <select id="getUserList" parameterType="top.campus.dto.UseQueryDTO" resultType="top.campus.vo.StudentListVO">
+    <select id="getUserList" parameterType="top.campus.dto.UseQueryDTO" resultType="top.campus.vo.UserListVO">
         SELECT id, username, avatar, user_type
         FROM sys_user
         <where>
@@ -48,11 +48,8 @@
                 and user_type = #{userType}
             </if>
             <if test="isDeleted != null">
-                AND is_deleted = #{deleted}
+                AND is_deleted = #{isDeleted}
             </if>
-<!--            <if test="isDeleted == null">-->
-<!--                AND is_deleted = 0-->
-<!--            </if>-->
         </where>
     </select>
 
